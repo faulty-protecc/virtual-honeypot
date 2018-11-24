@@ -1,3 +1,0 @@
-/mnt/linux2/home/liron/CLionProjects/NetworkDriverExperiment/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/mnt/linux2/home/liron/CLionProjects/NetworkDriverExperiment/cmake-build-debug/CMakeFiles/edit_cache.dir
-/mnt/linux2/home/liron/CLionProjects/NetworkDriverExperiment/cmake-build-debug/CMakeFiles/NetworkDriverExperiment.dir
