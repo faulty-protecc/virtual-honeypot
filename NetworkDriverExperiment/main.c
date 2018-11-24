@@ -51,8 +51,8 @@ int main(int argc, char** argv)
     // Open Kingston Data Traveler
     // For a list of vendor & product ids visit: www.linux-usb.org/usb.ids
     libusb_device_handle* m_handle;
-    m_handle = libusb_open_device_with_vid_pid(NULL, (uint16_t) 0x174c, (uint16_t)
-            0x5106);
+    m_handle = libusb_open_device_with_vid_pid(NULL, (uint16_t) 0x152d, (uint16_t)
+            0x0578);
 
     if (m_handle == NULL) {
         printf("Can't open a Kingston DataTraveler 2.0!\n");
@@ -67,8 +67,13 @@ int main(int argc, char** argv)
     libusb_get_device_descriptor(m_device, &m_device_descriptor);
     printf("My device is connected on bus %d, port %d, with address %d\n", libusb_get_bus_number(m_device),
             libusb_get_port_number(m_device),libusb_get_device_address(m_device));
-    struct libusb_config_descriptor m_config_descriptors[1];
-    libusb_get_config_descriptor(m_device, 0, (struct libusb_config_descriptor **) &m_config_descriptors);
+    int config_num;
+    return_value = libusb_get_configuration(m_handle,&config_num);
+    struct libusb_config_descriptor* m_config_descriptors[1];
+    struct libusb_config_descriptor m_config_descriptor;
+    m_config_descriptors[0] = &m_config_descriptor;
+    libusb_get_config_descriptor_by_value(m_device, (uint8_t) config_num, (struct libusb_config_descriptor **) &m_config_descriptors);
+//    libusb_get_config_descriptor(m_device, 0,);
     return_value = libusb_get_device_speed(m_device);
     printf("My device's speed is: ");
     switch (return_value) {
@@ -88,8 +93,7 @@ int main(int argc, char** argv)
             printf("BAD SPEED VALUE!");
     }
     printf("\n");
-    int config_num;
-    return_value = libusb_get_configuration(m_handle,&config_num);
+
     if (return_value != 0 )
         printf("Error getting configuration number for my device..!\n");
     else
