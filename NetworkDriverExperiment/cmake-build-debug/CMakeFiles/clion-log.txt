@@ -1,4 +1,0 @@
-/mnt/linux2/home/liron/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/182.5107.21/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /mnt/linux2/home/liron/CLionProjects/NetworkDriverExperiment
--- Configuring done
--- Generating done
--- Build files have been written to: /mnt/linux2/home/liron/CLionProjects/NetworkDriverExperiment/cmake-build-debug
