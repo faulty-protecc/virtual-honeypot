@@ -61,7 +61,7 @@ int main(int argc, char** argv)
                 if (m_interface_desc.bInterfaceClass == 10) {
                     handle_usb_cdc_device(m_handle, m_device_descriptor.idVendor, m_device_descriptor.idProduct, m_interface_desc);
                 } else if (m_interface_desc.bInterfaceClass == 8) {
-                    handle_usb_mass_storage_device(m_device_descriptor.idVendor, m_device_descriptor.idProduct, m_interface_desc);
+                    handle_usb_mass_storage_device(m_handle, m_device_descriptor.idVendor, m_device_descriptor.idProduct, m_interface_desc);
                 } else {
                     printf("Device %x:%x is not a USB CDC or Mass Storage device\n",dev_desc.idVendor,dev_desc.idProduct);
                 }
