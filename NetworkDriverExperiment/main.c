@@ -84,9 +84,10 @@ void handle_usb_cdc_device(struct libusb_device_handle* dev_handle, uint16_t ven
     printf("The device %x:%x is a USB CDC device!\n", vendor, product);
     unsigned char strBuffer[256];
     libusb_get_string_descriptor_ascii(dev_handle,interface_desc.iInterface,strBuffer,256);
-    printf("The current inteface is %s\n",strBuffer);
+    printf("The current interface is %s\n",strBuffer);
+    
 }
 
-void handle_usb_mass_storage_device(uint16_t vendor, uint16_t product, struct libusb_interface_descriptor interface_desc) {
+void handle_usb_mass_storage_device(struct libusb_device_handle* dev_handle, uint16_t vendor, uint16_t product, struct libusb_interface_descriptor interface_desc) {
     printf("The device %x:%x is a USB Mass Storage device!\n", vendor, product);
 }
