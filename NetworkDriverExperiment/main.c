@@ -3,25 +3,6 @@
 #include <libusb-1.0/libusb.h>
 #include <stdlib.h>
 
-void print_devs(libusb_device** devs) {
-    libusb_device* dev;
-    int i = 0;
-
-    while((dev = devs[i++]) != NULL) {
-        struct libusb_device_descriptor desc;
-        int r = libusb_get_device_descriptor(dev,&desc);
-
-        if (r < 0) {
-            fprintf(stderr, "failed to get device descriptor");
-            return;
-        }
-        printf("%04x:%04x (bus %d, device %d)\n",
-               desc.idVendor, desc.idProduct,
-               libusb_get_bus_number(dev), libusb_get_device_address(dev));
-
-    }
-}
-
 int main(int argc, char** argv)
 {
     printf("Usage: %s [debug_level:0-4]\n", argv[0]);
@@ -46,61 +27,66 @@ int main(int argc, char** argv)
     if (cnt < 0)
         return (int) cnt;
     printf("Available USB devices:\n");
-    print_devs(devs);
+    
+    
+    for(int i = 0; i < cnt; i++) {
+        struct libusb_device_descriptor dev_desc;
+        libusb_get_device_descriptor(devs[i],&dev_desc);
+        
+        if (dev_desc.bDeviceClass == 0) {
+            libusb_device_handle* m_handle;
+            m_handle = libusb_open_device_with_vid_pid(NULL, dev_desc.idVendor, dev_desc.idProduct);
+            if (m_handle == NULL) {
+                printf("Failed opening device\n");
+                libusb_exit(NULL);
+                return 1;
+            }
+
+            printf("Opened USB device successfully!\n");
+            libusb_device* m_device = libusb_get_device(m_handle);
+            struct libusb_device_descriptor m_device_descriptor;
+
+            libusb_get_device_descriptor(m_device, &m_device_descriptor);
+            printf("My device is connected on bus %d, port %d, with address %d\n", libusb_get_bus_number(m_device),
+                    libusb_get_port_number(m_device),libusb_get_device_address(m_device));
+            int config_num;
+            return_value = libusb_get_configuration(m_handle,&config_num);
+            struct libusb_config_descriptor* m_config_descriptors[1];
+            libusb_get_config_descriptor_by_value(m_device, (uint8_t) config_num, (struct libusb_config_descriptor **) &m_config_descriptors);
+            struct libusb_config_descriptor* m_config_descriptor = m_config_descriptors[0];
+            
+            for(int i = 0; i < m_config_descriptor->bNumInterfaces; i++) {
+                libusb_claim_interface(m_handle,i);
+                struct libusb_interface_descriptor m_interface_desc = m_config_descriptor->interface[i].altsetting[0];
+                if (m_interface_desc.bInterfaceClass == 10) {
+                    handle_usb_cdc_device(m_handle, m_device_descriptor.idVendor, m_device_descriptor.idProduct, m_interface_desc);
+                } else if (m_interface_desc.bInterfaceClass == 8) {
+                    handle_usb_mass_storage_device(m_device_descriptor.idVendor, m_device_descriptor.idProduct, m_interface_desc);
+                } else {
+                    printf("Device %x:%x is not a USB CDC or Mass Storage device\n",dev_desc.idVendor,dev_desc.idProduct);
+                }
+                libusb_release_interface(m_handle,i);
+            }            
+
+            libusb_close(m_handle);
+
+        } else {
+            printf("Device %x:%x is not a USB CDC or Mass Storage device\n",dev_desc.idVendor,dev_desc.idProduct);
+        }
+    }
+    
     libusb_free_device_list(devs, 1);
-    // Open Kingston Data Traveler
-    // For a list of vendor & product ids visit: www.linux-usb.org/usb.ids
-    libusb_device_handle* m_handle;
-    m_handle = libusb_open_device_with_vid_pid(NULL, (uint16_t) 0x152d, (uint16_t)
-            0x0578);
-
-    if (m_handle == NULL) {
-        printf("Can't open a Kingston DataTraveler 2.0!\n");
-        libusb_exit(NULL);
-        return 1;
-    }
-
-    printf("Opened USB device Kingston DataTraveler 2.0!\n");
-    libusb_device* m_device = libusb_get_device(m_handle);
-    struct libusb_device_descriptor m_device_descriptor;
-
-    libusb_get_device_descriptor(m_device, &m_device_descriptor);
-    printf("My device is connected on bus %d, port %d, with address %d\n", libusb_get_bus_number(m_device),
-            libusb_get_port_number(m_device),libusb_get_device_address(m_device));
-    int config_num;
-    return_value = libusb_get_configuration(m_handle,&config_num);
-    struct libusb_config_descriptor* m_config_descriptors[1];
-    struct libusb_config_descriptor m_config_descriptor;
-    m_config_descriptors[0] = &m_config_descriptor;
-    libusb_get_config_descriptor_by_value(m_device, (uint8_t) config_num, (struct libusb_config_descriptor **) &m_config_descriptors);
-//    libusb_get_config_descriptor(m_device, 0,);
-    return_value = libusb_get_device_speed(m_device);
-    printf("My device's speed is: ");
-    switch (return_value) {
-        case LIBUSB_SPEED_LOW:
-            printf("LOW");
-            break;
-        case LIBUSB_SPEED_FULL:
-            printf("FULL");
-            break;
-        case LIBUSB_SPEED_HIGH:
-            printf("HIGH");
-            break;
-        case LIBUSB_SPEED_SUPER:
-            printf("SUPER");
-            break;
-        default:
-            printf("BAD SPEED VALUE!");
-    }
-    printf("\n");
-
-    if (return_value != 0 )
-        printf("Error getting configuration number for my device..!\n");
-    else
-        printf("My device is currently using configuration #%d\n", config_num);
-    // Now we may set another configuration, claim an interface & send/receive data
-    // On Linux we may need to detach the Kernel driver for the desired interface
-    libusb_close(m_handle);
     libusb_exit(NULL);
     return 0;
+}
+
+void handle_usb_cdc_device(struct libusb_device_handle* dev_handle, uint16_t vendor, uint16_t product, struct libusb_interface_descriptor interface_desc) {
+    printf("The device %x:%x is a USB CDC device!\n", vendor, product);
+    unsigned char strBuffer[256];
+    libusb_get_string_descriptor(dev_handle,interface_desc.iInterface,0,strBuffer,256);
+    printf("The current inteface is %s\n",strBuffer);
+}
+
+void handle_usb_mass_storage_device(uint16_t vendor, uint16_t product, struct libusb_interface_descriptor interface_desc) {
+    printf("The device %x:%x is a USB Mass Storage device!\n", vendor, product);
 }
