@@ -65,3 +65,6 @@ CTestTestfile.cmake
 
 #NetworkDriverExperimentBuild
 NetworkDriverExperiment/cmake-build-debug/**
+
+#LinuxKernelBuild
+LinuxKernel/out/**
