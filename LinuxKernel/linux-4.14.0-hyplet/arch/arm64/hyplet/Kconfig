@@ -1,0 +1,7 @@
+#
+#   Hyplet
+#
+config HYPLET
+	bool "hyplets"
+	---help---
+	hyplet support
