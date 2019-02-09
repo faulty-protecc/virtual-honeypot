@@ -2,8 +2,8 @@
 
 /memreserve/	0x0000000000000000 0x0000000000001000;
 / {
-	compatible = "raspberrypi,3-model-b-plus", "brcm,bcm2837";
-	model = "Raspberry Pi 3 Model B+";
+	compatible = "raspberrypi,3-model-b", "brcm,bcm2837";
+	model = "Raspberry Pi 3 Model B";
 	interrupt-parent = <0x1>;
 	#address-cells = <0x1>;
 	#size-cells = <0x1>;
@@ -11,7 +11,7 @@
 	aliases {
 		serial0 = "/soc/serial@7e201000";
 		serial1 = "/soc/serial@7e215040";
-		ethernet0 = "/soc/usb@7e980000/usb-port@1/usb-port@1/ethernet@1";
+		ethernet0 = "/soc/usb@7e980000/usb1@1/usbether@1";
 	};
 
 	chosen {
@@ -61,7 +61,8 @@
 			interrupt-names = "dma0", "dma1", "dma2", "dma3", "dma4", "dma5", "dma6", "dma7", "dma8", "dma9", "dma10", "dma11", "dma12", "dma13", "dma14", "dma-shared-all";
 			#dma-cells = <0x1>;
 			brcm,dma-channel-mask = <0x7f35>;
-			phandle = <0xc>;
+			linux,phandle = <0xa>;
+			phandle = <0xa>;
 		};
 
 		interrupt-controller@7e00b200 {
@@ -70,7 +71,8 @@
 			interrupt-controller;
 			#interrupt-cells = <0x2>;
 			interrupt-parent = <0x3>;
-			interrupts = <0x8 0x4>;
+			interrupts = <0x8>;
+			linux,phandle = <0x1>;
 			phandle = <0x1>;
 		};
 
@@ -84,13 +86,13 @@
 			#clock-cells = <0x1>;
 			reg = <0x7e101000 0x2000>;
 			clocks = <0x4 0x5 0x0 0x5 0x1 0x5 0x2 0x6 0x0 0x6 0x1 0x6 0x2>;
+			linux,phandle = <0x7>;
 			phandle = <0x7>;
 		};
 
 		rng@7e104000 {
 			compatible = "brcm,bcm2835-rng";
 			reg = <0x7e104000 0x10>;
-			interrupts = <0x2 0x1d>;
 		};
 
 		mailbox@7e00b880 {
@@ -98,7 +100,8 @@
 			reg = <0x7e00b880 0x40>;
 			interrupts = <0x0 0x1>;
 			#mbox-cells = <0x0>;
-			phandle = <0x1b>;
+			linux,phandle = <0x17>;
+			phandle = <0x17>;
 		};
 
 		gpio@7e200000 {
@@ -110,7 +113,8 @@
 			interrupt-controller;
 			#interrupt-cells = <0x2>;
 			pinctrl-names = "default";
-			phandle = <0x18>;
+			linux,phandle = <0x19>;
+			phandle = <0x19>;
 
 			dpi_gpio0 {
 				brcm,pins = <0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8 0x9 0xa 0xb 0xc 0xd 0xe 0xf 0x10 0x11 0x12 0x13 0x14 0x15 0x16 0x17 0x18 0x19 0x1a 0x1b>;
@@ -126,7 +130,8 @@
 				brcm,pins = <0x22 0x23 0x24 0x25 0x26 0x27>;
 				brcm,function = <0x7>;
 				brcm,pull = <0x0 0x2 0x2 0x2 0x2 0x2>;
-				phandle = <0x14>;
+				linux,phandle = <0x12>;
+				phandle = <0x12>;
 			};
 
 			emmc_gpio48 {
@@ -162,14 +167,15 @@
 			gpclk2_gpio43 {
 				brcm,pins = <0x2b>;
 				brcm,function = <0x4>;
-				brcm,pull = <0x0>;
-				phandle = <0xa>;
+				linux,phandle = <0x9>;
+				phandle = <0x9>;
 			};
 
 			i2c0_gpio0 {
 				brcm,pins = <0x0 0x1>;
 				brcm,function = <0x4>;
-				phandle = <0xe>;
+				linux,phandle = <0xc>;
+				phandle = <0xc>;
 			};
 
 			i2c0_gpio28 {
@@ -185,7 +191,8 @@
 			i2c1_gpio2 {
 				brcm,pins = <0x2 0x3>;
 				brcm,function = <0x4>;
-				phandle = <0x16>;
+				linux,phandle = <0x13>;
+				phandle = <0x13>;
 			};
 
 			i2c1_gpio44 {
@@ -200,7 +207,7 @@
 
 			jtag_gpio4 {
 				brcm,pins = <0x4 0x5 0x6 0xc 0xd>;
-				brcm,function = <0x2>;
+				brcm,function = <0x3>;
 			};
 
 			jtag_gpio22 {
@@ -231,7 +238,8 @@
 			pwm0_gpio40 {
 				brcm,pins = <0x28>;
 				brcm,function = <0x4>;
-				phandle = <0x12>;
+				linux,phandle = <0x10>;
+				phandle = <0x10>;
 			};
 
 			pwm1_gpio13 {
@@ -247,18 +255,20 @@
 			pwm1_gpio41 {
 				brcm,pins = <0x29>;
 				brcm,function = <0x4>;
-				phandle = <0x13>;
 			};
 
 			pwm1_gpio45 {
 				brcm,pins = <0x2d>;
 				brcm,function = <0x4>;
+				linux,phandle = <0x11>;
+				phandle = <0x11>;
 			};
 
 			sdhost_gpio48 {
 				brcm,pins = <0x30 0x31 0x32 0x33 0x34 0x35>;
 				brcm,function = <0x4>;
-				phandle = <0xd>;
+				linux,phandle = <0xb>;
+				phandle = <0xb>;
 			};
 
 			spi0_gpio7 {
@@ -294,15 +304,13 @@
 			uart0_ctsrts_gpio30 {
 				brcm,pins = <0x1e 0x1f>;
 				brcm,function = <0x7>;
-				brcm,pull = <0x2 0x0>;
-				phandle = <0x8>;
 			};
 
 			uart0_gpio32 {
 				brcm,pins = <0x20 0x21>;
 				brcm,function = <0x7>;
-				brcm,pull = <0x0 0x2>;
-				phandle = <0x9>;
+				linux,phandle = <0x8>;
+				phandle = <0x8>;
 			};
 
 			uart0_gpio36 {
@@ -318,7 +326,8 @@
 			uart1_gpio14 {
 				brcm,pins = <0xe 0xf>;
 				brcm,function = <0x2>;
-				phandle = <0x11>;
+				linux,phandle = <0xf>;
+				phandle = <0xf>;
 			};
 
 			uart1_ctsrts_gpio16 {
@@ -365,14 +374,8 @@
 			clock-names = "uartclk", "apb_pclk";
 			arm,primecell-periphid = <0x241011>;
 			pinctrl-names = "default";
-			pinctrl-0 = <0x8 0x9 0xa>;
+			pinctrl-0 = <0x8 0x9>;
 			status = "okay";
-
-			bluetooth {
-				compatible = "brcm,bcm43438-bt";
-				max-speed = <0x1e8480>;
-				shutdown-gpios = <0xb 0x0 0x0>;
-			};
 		};
 
 		mmc@7e202000 {
@@ -380,19 +383,18 @@
 			reg = <0x7e202000 0x100>;
 			interrupts = <0x2 0x18>;
 			clocks = <0x7 0x14>;
-			dmas = <0xc 0xd>;
+			dmas = <0xa 0xd>;
 			dma-names = "rx-tx";
 			status = "okay";
 			pinctrl-names = "default";
-			pinctrl-0 = <0xd>;
+			pinctrl-0 = <0xb>;
 			bus-width = <0x4>;
 		};
 
 		i2s@7e203000 {
 			compatible = "brcm,bcm2835-i2s";
-			reg = <0x7e203000 0x24>;
-			clocks = <0x7 0x1f>;
-			dmas = <0xc 0x2 0xc 0x3>;
+			reg = <0x7e203000 0x20 0x7e101098 0x2>;
+			dmas = <0xa 0x2 0xa 0x3>;
 			dma-names = "tx", "rx";
 			status = "disabled";
 		};
@@ -416,7 +418,7 @@
 			#size-cells = <0x0>;
 			status = "okay";
 			pinctrl-names = "default";
-			pinctrl-0 = <0xe>;
+			pinctrl-0 = <0xc>;
 			clock-frequency = <0x186a0>;
 		};
 
@@ -432,16 +434,6 @@
 			interrupts = <0x2 0xe>;
 		};
 
-		dpi@7e208000 {
-			compatible = "brcm,bcm2835-dpi";
-			reg = <0x7e208000 0x8c>;
-			clocks = <0x7 0x14 0x7 0x2c>;
-			clock-names = "core", "pixel";
-			#address-cells = <0x1>;
-			#size-cells = <0x0>;
-			status = "disabled";
-		};
-
 		dsi@7e209000 {
 			compatible = "brcm,bcm2835-dsi0";
 			reg = <0x7e209000 0x78>;
@@ -452,7 +444,8 @@
 			clocks = <0x7 0x20 0x7 0x2f 0x7 0x31>;
 			clock-names = "phy", "escape", "pixel";
 			clock-output-names = "dsi0_byte", "dsi0_ddr2", "dsi0_ddr";
-			power-domains = <0xf 0x11>;
+			power-domains = <0xd 0x11>;
+			linux,phandle = <0x5>;
 			phandle = <0x5>;
 		};
 
@@ -462,32 +455,34 @@
 			clocks = <0x7 0x1b>;
 			#thermal-sensor-cells = <0x0>;
 			status = "okay";
+			linux,phandle = <0x2>;
 			phandle = <0x2>;
 		};
 
-		aux@7e215000 {
+		aux@0x7e215000 {
 			compatible = "brcm,bcm2835-aux";
 			#clock-cells = <0x1>;
 			reg = <0x7e215000 0x8>;
 			clocks = <0x7 0x14>;
-			phandle = <0x10>;
+			linux,phandle = <0xe>;
+			phandle = <0xe>;
 		};
 
 		serial@7e215040 {
 			compatible = "brcm,bcm2835-aux-uart";
 			reg = <0x7e215040 0x40>;
 			interrupts = <0x1 0x1d>;
-			clocks = <0x10 0x0>;
+			clocks = <0xe 0x0>;
 			status = "okay";
 			pinctrl-names = "default";
-			pinctrl-0 = <0x11>;
+			pinctrl-0 = <0xf>;
 		};
 
 		spi@7e215080 {
 			compatible = "brcm,bcm2835-aux-spi";
 			reg = <0x7e215080 0x40>;
 			interrupts = <0x1 0x1d>;
-			clocks = <0x10 0x1>;
+			clocks = <0xe 0x1>;
 			#address-cells = <0x1>;
 			#size-cells = <0x0>;
 			status = "disabled";
@@ -497,7 +492,7 @@
 			compatible = "brcm,bcm2835-aux-spi";
 			reg = <0x7e2150c0 0x40>;
 			interrupts = <0x1 0x1d>;
-			clocks = <0x10 0x2>;
+			clocks = <0xe 0x2>;
 			#address-cells = <0x1>;
 			#size-cells = <0x0>;
 			status = "disabled";
@@ -512,7 +507,7 @@
 			#pwm-cells = <0x2>;
 			status = "okay";
 			pinctrl-names = "default";
-			pinctrl-0 = <0x12 0x13>;
+			pinctrl-0 = <0x10 0x11>;
 		};
 
 		sdhci@7e300000 {
@@ -522,17 +517,9 @@
 			clocks = <0x7 0x1c>;
 			status = "okay";
 			pinctrl-names = "default";
-			pinctrl-0 = <0x14>;
+			pinctrl-0 = <0x12>;
 			bus-width = <0x4>;
-			#address-cells = <0x1>;
-			#size-cells = <0x0>;
 			non-removable;
-			mmc-pwrseq = <0x15>;
-
-			wifi@1 {
-				reg = <0x1>;
-				compatible = "brcm,bcm4329-fmac";
-			};
 		};
 
 		hvs@7e400000 {
@@ -552,7 +539,8 @@
 			clock-names = "phy", "escape", "pixel";
 			clock-output-names = "dsi1_byte", "dsi1_ddr2", "dsi1_ddr";
 			status = "disabled";
-			power-domains = <0xf 0x12>;
+			power-domains = <0xd 0x12>;
+			linux,phandle = <0x6>;
 			phandle = <0x6>;
 		};
 
@@ -565,7 +553,7 @@
 			#size-cells = <0x0>;
 			status = "okay";
 			pinctrl-names = "default";
-			pinctrl-0 = <0x16>;
+			pinctrl-0 = <0x13>;
 			clock-frequency = <0x186a0>;
 		};
 
@@ -577,7 +565,8 @@
 			#address-cells = <0x1>;
 			#size-cells = <0x0>;
 			status = "okay";
-			phandle = <0x17>;
+			linux,phandle = <0x14>;
+			phandle = <0x14>;
 		};
 
 		vec@7e806000 {
@@ -586,7 +575,7 @@
 			clocks = <0x7 0x18>;
 			interrupts = <0x2 0x1b>;
 			status = "okay";
-			power-domains = <0xf 0x7>;
+			power-domains = <0xd 0x7>;
 		};
 
 		pixelvalve@7e807000 {
@@ -599,14 +588,13 @@
 			compatible = "brcm,bcm2835-hdmi";
 			reg = <0x7e902000 0x600 0x7e808000 0x100>;
 			interrupts = <0x2 0x8 0x2 0x9>;
-			ddc = <0x17>;
+			ddc = <0x14>;
 			clocks = <0x7 0x10 0x7 0x19>;
 			clock-names = "pixel", "hdmi";
-			dmas = <0xc 0x11>;
+			dmas = <0xa 0x11>;
 			dma-names = "audio-rx";
 			status = "okay";
-			power-domains = <0xf 0x5>;
-			hpd-gpios = <0x18 0x1c 0x1>;
+			power-domains = <0xd 0x5>;
 		};
 
 		usb@7e980000 {
@@ -615,34 +603,27 @@
 			interrupts = <0x1 0x9>;
 			#address-cells = <0x1>;
 			#size-cells = <0x0>;
-			clocks = <0x19>;
+			clocks = <0x15>;
 			clock-names = "otg";
-			phys = <0x1a>;
+			phys = <0x16>;
 			phy-names = "usb2-phy";
-			power-domains = <0xf 0x6>;
+			power-domains = <0xd 0x6>;
 			dr_mode = "host";
 
-			usb-port@1 {
-				compatible = "usb424,2514";
+			usb1@1 {
+				compatible = "usb424,9514";
 				reg = <0x1>;
 				#address-cells = <0x1>;
 				#size-cells = <0x0>;
 
-				usb-port@1 {
-					compatible = "usb424,2514";
+				usbether@1 {
+					compatible = "usb424,ec00";
 					reg = <0x1>;
-					#address-cells = <0x1>;
-					#size-cells = <0x0>;
-
-					ethernet@1 {
-						compatible = "usb424,7800";
-						reg = <0x1>;
-					};
 				};
 			};
 		};
 
-		   /* 7ed - 3f0 = 3fd */ 
+	       /* 7ed - 3f0 = 3fd */ 
 		usb_fake@7ed00000{
 			compatible = "brcm,bcm2835-usb";
 			reg = <0x7ed00000 0x10000>;
@@ -680,50 +661,36 @@
 			compatible = "brcm,bcm2835-v3d";
 			reg = <0x7ec00000 0x1000>;
 			interrupts = <0x1 0xa>;
-			power-domains = <0xf 0xa>;
+			power-domains = <0xd 0xa>;
 		};
 
 		gpu {
 			compatible = "brcm,bcm2835-vc4";
 		};
 
-		local_intc@40000000 {
+		local_intc {
 			compatible = "brcm,bcm2836-l1-intc";
 			reg = <0x40000000 0x100>;
 			interrupt-controller;
-			#interrupt-cells = <0x2>;
+			#interrupt-cells = <0x1>;
 			interrupt-parent = <0x3>;
+			linux,phandle = <0x3>;
 			phandle = <0x3>;
 		};
 
 		firmware {
-			compatible = "raspberrypi,bcm2835-firmware", "simple-bus";
-			#address-cells = <0x0>;
-			#size-cells = <0x0>;
-			mboxes = <0x1b>;
-			phandle = <0x1c>;
-
-			gpio {
-				compatible = "raspberrypi,firmware-gpio";
-				gpio-controller;
-				#gpio-cells = <0x2>;
-				gpio-line-names = "BT_ON", "WL_ON", "STATUS_LED", "LAN_RUN", "", "CAM_GPIO0", "CAM_GPIO1", "";
-				status = "okay";
-				phandle = <0xb>;
-			};
+			compatible = "raspberrypi,bcm2835-firmware";
+			mboxes = <0x17>;
+			linux,phandle = <0x18>;
+			phandle = <0x18>;
 		};
 
 		power {
 			compatible = "raspberrypi,bcm2835-power";
-			firmware = <0x1c>;
+			firmware = <0x18>;
 			#power-domain-cells = <0x1>;
-			phandle = <0xf>;
-		};
-
-		mailbox@7e00b840 {
-			compatible = "brcm,bcm2835-vchiq";
-			reg = <0x7e00b840 0xf>;
-			interrupts = <0x0 0x2>;
+			linux,phandle = <0xd>;
+			phandle = <0xd>;
 		};
 	};
 
@@ -738,6 +705,7 @@
 			#clock-cells = <0x0>;
 			clock-output-names = "osc";
 			clock-frequency = <0x124f800>;
+			linux,phandle = <0x4>;
 			phandle = <0x4>;
 		};
 
@@ -747,20 +715,21 @@
 			#clock-cells = <0x0>;
 			clock-output-names = "otg";
 			clock-frequency = <0x1c9c3800>;
-			phandle = <0x19>;
+			linux,phandle = <0x15>;
+			phandle = <0x15>;
 		};
 	};
 
 	phy {
 		compatible = "usb-nop-xceiv";
-		#phy-cells = <0x0>;
-		phandle = <0x1a>;
+		linux,phandle = <0x16>;
+		phandle = <0x16>;
 	};
 
 	timer {
 		compatible = "arm,armv7-timer";
 		interrupt-parent = <0x3>;
-		interrupts = <0x0 0x4 0x1 0x4 0x3 0x4 0x2 0x4>;
+		interrupts = <0x0 0x1 0x3 0x2>;
 		always-on;
 	};
 
@@ -814,18 +783,7 @@
 			label = "ACT";
 			default-state = "keep";
 			linux,default-trigger = "heartbeat";
-			gpios = <0x18 0x1d 0x0>;
+			gpios = <0x19 0x2f 0x0>;
 		};
-
-		pwr {
-			label = "PWR";
-			gpios = <0xb 0x2 0x1>;
-		};
-	};
-
-	wifi-pwrseq {
-		compatible = "mmc-pwrseq-simple";
-		reset-gpios = <0xb 0x1 0x0>;
-		phandle = <0x15>;
 	};
 };
