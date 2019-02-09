@@ -1,7 +1,7 @@
 #!/bin/bash
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 echo "running from $DIR"
-sudo docker run -v $DIR/../../LinuxKernel/linux-4.14.0-hyplet:/root/linux-source -v $DIR/../../LinuxKernel/out/modules:/root/modules -v $DIR/../../LinuxKernel/out/kernel-obj:/root/kernel-obj -d --name linux-kernel-build linuxkernelbuild linuxkernelbuild:latest 2>/dev/null
+sudo docker run -v $DIR/../../LinuxKernel/linux-4.4.92-tp:/root/linux-source -v $DIR/../../LinuxKernel/out/modules:/root/modules -v $DIR/../../LinuxKernel/out/kernel-obj:/root/kernel-obj -d --name linux-kernel-build linuxkernelbuild linuxkernelbuild:latest 2>/dev/null
 
 if [ $? != 0 ]; then
     sudo docker start linux-kernel-build
