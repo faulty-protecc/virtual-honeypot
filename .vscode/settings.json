@@ -1,2 +1,10 @@
 {
+    "files.associations": {
+        "usb.h": "c",
+        "kernel.h": "c",
+        "errno.h": "c",
+        "types.h": "c",
+        "init.h": "c"
+    },
+    "C_Cpp.default.intelliSenseMode": "gcc-x64"
 }

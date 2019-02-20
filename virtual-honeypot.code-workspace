@@ -7,6 +7,9 @@
 	"settings": {
 		"files.exclude": {
 			"**/out/*/*": true
+		},
+		"files.watcherExclude": {
+			"LinuxKernel/**": true
 		}
 	}
 }

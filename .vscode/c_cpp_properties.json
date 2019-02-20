@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "browse": {
+                "path": [
+                    "${workspaceRoot}/USBDeviceReader",
+                    "${workspaceRoot}/NetworkDriverExperiment"
+                ]
+            }
+        }
+    ],
+    "version": 4
+}
