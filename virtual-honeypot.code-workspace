@@ -9,7 +9,7 @@
 			"**/out/*/*": true
 		},
 		"files.watcherExclude": {
-			"LinuxKernel/**": true
+			"**/LinuxKernel/pi3/**": true
 		}
 	}
 }
