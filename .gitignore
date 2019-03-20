@@ -69,3 +69,6 @@ NetworkDriverExperiment/cmake-build-debug/**
 #LinuxKernelBuild
 LinuxKernel/out/**
 !LinuxKernel/linux-4.14.0-hyplet/scripts/*
+
+#vscode
+.vscode/ipch/*
