@@ -11,6 +11,8 @@ This repository contains
 - some libusb examples (internally used to analyze the structure of usb and other block devices, depicted by libusb)
 - docker image that installs ubuntu (bionic).
 The basic build process is running the [`build_docker_image.sh`](https://github.com/deankevorkian/virtual-honeypot/blob/master/build_scripts/LinuxKernelBuild/build_docker_image.sh) script. The script builds a docker image which in place installs all the prerequisites for building the kernel (on top of Ubuntu bionic).
+- Run [build.sh](https://github.com/deankevorkian/virtual-honeypot/blob/master/build_scripts/LinuxKernelBuild/build.sh) in order to build the kernel.
+- Run [build_dtb.sh](https://github.com/deankevorkian/virtual-honeypot/blob/master/build_scripts/LinuxKernelBuild/build_dtb.sh) in order to build a devicetree binary.
 
 # Creating an image for the Raspberry Pi 3 Model B+
 - First, build the microkernel from [here](#building-steps-for-building-the-microkernel)
@@ -21,8 +23,10 @@ The basic build process is running the [`build_docker_image.sh`](https://github.
 xzcat 20181204-raspberry-pi-3-buster-PREVIEW.img.xz | dd of=/dev/sdX bs=64k oflag=dsync status=progress
 ```
 - **Notice:** You need to replace /dev/sdX with the device that you are writing to. Make sure that it is actually the SD card, so you do not accidentally corrupt your own file system!
+- Run 
 - Copy LinuxKernel/out/kernel-obj/arch/arm64/boot/Image to the RASPIFIRM mount and give it a meaningful name (eg. linux-4.14.0-hyplets.img)
 - Copy the modules from LinuxKernel/out/modules/lib/modules/ to /lib/modules on the RASPIROOT mount
+- Copy the device tree from LinuxKernel/out/dtb/bcm2837-rpi-3-b.dtb to RASPIFIRM
 - Now take out the SD card from your computer and put it in the Raspberry Pi
 - On the Raspberry Pi run `Run update-initramfs -k <your-kernel-module-version> -c` (eg. `Run initramfs -k 4.14.0-hyplet -c`)
 - Still inside the Raspberry Pi 3, Copy your image from /boot/firmware to /boot (this is the image from LinuxKernel/out/kernel-obj/arch/arm64/boot/)
