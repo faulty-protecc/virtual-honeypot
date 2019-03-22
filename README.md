@@ -24,12 +24,13 @@ xzcat 20181204-raspberry-pi-3-buster-PREVIEW.img.xz | dd of=/dev/sdX bs=64k ofla
 - Copy LinuxKernel/out/kernel-obj/arch/arm64/boot/Image to the RASPIFIRM mount and give it a meaningful name (eg. linux-4.14.0-hyplets.img)
 - Copy the modules from LinuxKernel/out/modules/lib/modules/ to /lib/modules on the RASPIROOT mount
 - Now take out the SD card from your computer and put it in the Raspberry Pi
-- On the Raspberry Pi run `Run initramfs -k <your-kernel-module-version> -c` (eg. `Run initramfs -k 4.14.0-hyplet -c`)
+- On the Raspberry Pi run `Run update-initramfs -k <your-kernel-module-version> -c` (eg. `Run initramfs -k 4.14.0-hyplet -c`)
 - Still inside the Raspberry Pi 3, Copy your image from /boot/firmware to /boot (this is the image from LinuxKernel/out/kernel-obj/arch/arm64/boot/)
 - Now, on the Rapsberry Pi 3, write the following on the config.txt (make sure to comment out any duplicate kernel and initramfs parameters with #):
 ```
 kernel=linux-4.14.0-hyplets.img
 initramfs initrd.img-4.14.0-hyplet
+device_tree=bcm2837-rpi-3-b.dtb
 ```
 - Now reboot the Raspberry Pi and login with root as the username and "raspberry" as the password.
 - Run `uname -r` and you should see your custom kernel name.
