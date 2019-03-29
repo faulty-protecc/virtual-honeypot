@@ -4,7 +4,8 @@
             "name": "Linux",
             "browse": {
                 "path": [
-                    "${workspaceRoot}/NetworkDriverExperiment"
+                    "${workspaceRoot}/NetworkDriverExperiment",
+                    "${workspaceRoot}/LinuxKernel/pi3"
                 ]
             }
         }
