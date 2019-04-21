@@ -7,7 +7,12 @@
                     "${workspaceRoot}/NetworkDriverExperiment",
                     "${workspaceRoot}/LinuxKernel/pi3"
                 ]
-            }
+            },
+            "includePath": [
+                "${default}",
+                "${workspaceFolder}/LinuxKernel/pi3/include",
+                "${workspaceFolder}/LinuxKernel/pi3/arch/arm64/include"
+            ]
         }
     ],
     "version": 4
