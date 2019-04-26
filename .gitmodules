@@ -1,4 +1,4 @@
 [submodule "LinuxKernel/pi3"]
 	path = LinuxKernel/pi3
-	url = git@git.scipio.org:raziebe/pi3.git
+	url = git@github.com:Zironite/pi3.git
 	branch = malware_detector_debug
