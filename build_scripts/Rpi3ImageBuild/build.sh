@@ -8,10 +8,10 @@ if [ $? != 0 ]; then
 fi
 
 $DIR/../LinuxKernelBuild/build.sh
-if [[ -z $(sudo docker exec rpi3-image-build losetup -l | grep 20190206-raspberry-pi-3-buster-PREVIEW.img | cut -f 1 -d " ") ]]; then
+if [[ -z $(docker exec rpi3-image-build losetup -l | grep 20190206-raspberry-pi-3-buster-PREVIEW.img | cut -f 1 -d " ") ]]; then
     docker exec rpi3-image-build losetup -Pf 20190206-raspberry-pi-3-buster-PREVIEW.img
 fi
-MAIN_LOOP_DEV=$(sudo docker exec rpi3-image-build losetup -l | grep 20190206-raspberry-pi-3-buster-PREVIEW.img | cut -f 1 -d " ")
+MAIN_LOOP_DEV=$(docker exec rpi3-image-build losetup -l | grep 20190206-raspberry-pi-3-buster-PREVIEW.img | cut -f 1 -d " ")
 echo "Main loop dev is $MAIN_LOOP_DEV"
 docker exec rpi3-image-build /bin/bash -c 'if [[ ! -d "/mnt/RASPIFIRM" ]]; then mkdir /mnt/RASPIFIRM; fi'
 docker exec rpi3-image-build /bin/bash -c 'if [[ ! -d "/mnt/RASPIROOT" ]]; then mkdir /mnt/RASPIROOT; fi'
