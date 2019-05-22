@@ -4,12 +4,12 @@ echo "running from $DIR"
 docker run --privileged -v $DIR/../../LinuxKernel/out/modules:/root/modules -v $DIR/../../LinuxKernel/out/kernel-obj:/root/kernel-obj -d --name rpi3-image-build rpi3imagebuild rpi3imagebuild:latest 2>/dev/null
 
 if [ $? != 0 ]; then
-    sudo docker start rpi3-image-build
+    docker start rpi3-image-build
 fi
 
 $DIR/../LinuxKernelBuild/build.sh
 if [[ -z $(sudo docker exec rpi3-image-build losetup -l | grep 20190206-raspberry-pi-3-buster-PREVIEW.img | cut -f 1 -d " ") ]]; then
-    sudo docker exec rpi3-image-build losetup -Pf 20190206-raspberry-pi-3-buster-PREVIEW.img
+    docker exec rpi3-image-build losetup -Pf 20190206-raspberry-pi-3-buster-PREVIEW.img
 fi
 MAIN_LOOP_DEV=$(sudo docker exec rpi3-image-build losetup -l | grep 20190206-raspberry-pi-3-buster-PREVIEW.img | cut -f 1 -d " ")
 echo "Main loop dev is $MAIN_LOOP_DEV"
