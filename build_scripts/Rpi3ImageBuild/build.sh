@@ -30,8 +30,8 @@ if [[ $RASPIROOT_COUNT -eq 0 ]]; then
     exit 2
 fi
 
-docker exec rpi3-image-build cp $DIR/../../LinuxKernel/out/kernel-obj/arch/arm64/boot/Image /mnt/RASPIFIRM/linux-4.14.0-malware-detector.img
-docker exec rpi3-image-build cp -r $DIR/../../LinuxKernel/out/modules/lib/modules/4.14.0-hyplet/ /mnt/RASPIROOT/lib/modules/
+docker exec rpi3-image-build cp /root/kernel-obj/arch/arm64/boot/Image /mnt/RASPIFIRM/linux-4.14.0-malware-detector.img
+docker exec rpi3-image-build cp -r /root/modules/lib/modules/4.14.0-hyplet/ /mnt/RASPIROOT/lib/modules/
 docker exec rpi3-image-build chroot /mnt/RASPIROOT
 docker exec rpi3-image-build update-initramfs -k 4.14.0-hyplet -c
 docker stop rpi3-image-build
