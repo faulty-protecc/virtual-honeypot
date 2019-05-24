@@ -59,4 +59,5 @@ echo "if [[ -f /update_initramfs.sh ]]; then /update_initramfs.sh; fi" >> /mnt/t
 # docker exec rpi3-image-build /bash_copy -c 'update-initramfs -k 4.14.0-hyplet -c'
 umount /mnt/tmp_RASPIFIRM
 umount /mnt/tmp_RASPIROOT
+losetup -d $MAIN_LOOP_DEV
 cp $DIR/../../LinuxKernel/out/rpi3-image/20190206-raspberry-pi-3-buster-PREVIEW.img $DIR/../../LinuxKernel/out/rpi3-image/rpi3.img
