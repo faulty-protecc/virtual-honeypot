@@ -12,7 +12,7 @@ fi
 # This function creates temp files on our mount point
 function makeTempFiles
 {
-	mktemp --dry-run -p /mnt/ramdisk_test testfile.XXXXXXXX &
+	mktemp -p /mnt/ramdisk_test testfile.XXXXXXXX &
 }
 
 # Make sure that files will be created simulataneously,
