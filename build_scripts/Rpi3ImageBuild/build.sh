@@ -13,7 +13,7 @@ cd $DIR/../../LinuxKernel/out/rpi3-image
 unxz 20190206-raspberry-pi-3-buster-PREVIEW.img.xz
 cd $DIR
 
-# $DIR/../LinuxKernelBuild/build.sh
+$DIR/../LinuxKernelBuild/build.sh
 if [[ -z $(losetup -l | grep 20190206-raspberry-pi-3-buster-PREVIEW.img | cut -f 1 -d " ") ]]; then
     losetup -Pf $DIR/../../LinuxKernel/out/rpi3-image/20190206-raspberry-pi-3-buster-PREVIEW.img
 fi
@@ -46,17 +46,6 @@ cp $DIR/config.txt $DIR/../../LinuxKernel/out/rpi3-image/firmware_config.txt
 cp $DIR/../../LinuxKernel/out/rpi3-image/firmware_config.txt /mnt/tmp_RASPIROOT
 cp $DIR/update_initramfs.sh /mnt/tmp_RASPIROOT
 echo "if [[ -f /update_initramfs.sh ]]; then /update_initramfs.sh; fi" >> /mnt/tmp_RASPIROOT/root/.bashrc
-# docker exec rpi3-image-build /bin/bash -c 'cp /bin/rm /rm_copy && cp /bin/cp /cp_copy && cp /bin/bash /bash_copy'
-# docker exec rpi3-image-build /bash_copy -c '/rm_copy -r /bin/ /lib/ /sbin/'
-# docker exec rpi3-image-build /bash_copy -c '/cp_copy -r /mnt/RASPIROOT/* /'
-# docker exec rpi3-image-build /bin/bash -c 'if [[ ! -d "/lib/modules/" ]]; then mkdir /lib/modules/; fi'
-# docker exec rpi3-image-build /bin/bash -c 'if [[ ! -L "/lib/modules/4.14.0-hyplet" ]]; then cd /lib/modules/ && ln -s /mnt/RASPIROOT/lib/modules/4.14.0-hyplet 4.14.0-hyplet && cd /; fi'
-# docker exec rpi3-image-build /bin/bash -c 'if [[ ! -L "/usr/share/initramfs-tools" ]]; then cd /usr/share/ && ln -s /mnt/RASPIROOT/usr/share/initramfs-tools initramfs-tools && cd /; fi'
-# docker exec rpi3-image-build /bin/bash -c 'if [[ ! -L "/etc/initramfs-tools" ]]; then cd /etc/ && ln -s /mnt/RASPIROOT/etc/initramfs-tools initramfs-tools && cd /; fi'
-# docker exec rpi3-image-build /bin/bash -c 'if [[ ! -L "/usr/sbin/mkinitramfs" ]]; then cd /usr/sbin/ && ln -s /mnt/RASPIROOT/usr/sbin/mkinitramfs mkinitramfs && cd /; fi'
-# docker exec rpi3-image-build /bin/bash -c 'if [[ ! -L "/sbin/depmod" ]]; then cd /sbin/ && ln -s /mnt/RASPIROOT/bin/kmod depmod && cd /; fi'
-# docker exec rpi3-image-build /bin/bash -c 'if [[ ! -L "/sbin/modprobe" ]]; then cd /sbin/ && ln -s /mnt/RASPIROOT/bin/kmod modprobe && cd /; fi'
-# docker exec rpi3-image-build /bash_copy -c 'update-initramfs -k 4.14.0-hyplet -c'
 umount /mnt/tmp_RASPIFIRM
 umount /mnt/tmp_RASPIROOT
 losetup -d $MAIN_LOOP_DEV
