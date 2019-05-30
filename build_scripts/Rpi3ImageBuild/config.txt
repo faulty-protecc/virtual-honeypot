@@ -6,4 +6,4 @@ enable_uart=1
 kernel=linux-4.14.0-malware-detector.img
 # For details on the initramfs directive, see
 # https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=10532
-initramfs initrd.img-4.14.0-hyplet
+initramfs initrd.img-4.14.0-memacq

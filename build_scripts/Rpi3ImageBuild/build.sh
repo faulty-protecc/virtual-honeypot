@@ -41,7 +41,7 @@ if [[ $RASPIROOT_COUNT -eq 0 ]]; then
 fi
 
 cp $DIR/../../LinuxKernel/out/kernel-obj/arch/arm64/boot/Image /mnt/tmp_RASPIFIRM/linux-4.14.0-malware-detector.img
-cp -r $DIR/../../LinuxKernel/out/modules/lib/modules/4.14.0-hyplet/ /mnt/tmp_RASPIROOT/lib/modules/
+cp -r $DIR/../../LinuxKernel/out/modules/lib/modules/4.14.0-memacq/ /mnt/tmp_RASPIROOT/lib/modules/
 cp $DIR/config.txt $DIR/../../LinuxKernel/out/rpi3-image/firmware_config.txt
 cp $DIR/../../LinuxKernel/out/rpi3-image/firmware_config.txt /mnt/tmp_RASPIROOT
 cp $DIR/update_initramfs.sh /mnt/tmp_RASPIROOT

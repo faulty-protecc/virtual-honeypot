@@ -1,4 +1,4 @@
-[submodule "LinuxKernel/pi3"]
-	path = LinuxKernel/pi3
-	url = git@github.com:faulty-protecc/pi3.git
-	branch = malware_detector_debug
+[submodule "LinuxKernel/rasp-hyplet"]
+	path = LinuxKernel/rasp-hyplet
+	url = git@github.com:faulty-protecc/rasp-hyplet.git
+	branch = honeypot
