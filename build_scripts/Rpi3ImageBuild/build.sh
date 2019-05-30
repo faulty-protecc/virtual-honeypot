@@ -46,6 +46,15 @@ cp $DIR/config.txt $DIR/../../LinuxKernel/out/rpi3-image/firmware_config.txt
 cp $DIR/../../LinuxKernel/out/rpi3-image/firmware_config.txt /mnt/tmp_RASPIROOT
 cp $DIR/update_initramfs.sh /mnt/tmp_RASPIROOT
 echo "if [[ -f /update_initramfs.sh ]]; then /update_initramfs.sh; fi" >> /mnt/tmp_RASPIROOT/root/.bashrc
+
+if [[ ! -f $DIR/../../LinuxKernel/out/rpi3-image/gcc-linaro-4.9-2015.05-x86_64_aarch64-linux-gnu.tar.xz ]]; then
+    wget https://releases.linaro.org/archive/15.05/components/toolchain/binaries/aarch64-linux-gnu/gcc-linaro-4.9-2015.05-x86_64_aarch64-linux-gnu.tar.xz -P $DIR/../../LinuxKernel/out/rpi3-image
+fi
+
+cd $DIR/../../LinuxKernel/out/rpi3-image
+tar -Jxvf gcc-linaro-4.9-2015.05-x86_64_aarch64-linux-gnu.tar.xz
+cd $DIR
+$DIR/../../LinuxKernel/out/rpi3-image/gcc-linaro-4.9-2015.05-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-gcc -o $DIR/../../LinuxKernel/out/rpi3-image/server $DIR/../../LinuxKernel/rasp-hyplet/drivers/md-ramdisk-driver/server.c
 umount /mnt/tmp_RASPIFIRM
 umount /mnt/tmp_RASPIROOT
 losetup -d $MAIN_LOOP_DEV
