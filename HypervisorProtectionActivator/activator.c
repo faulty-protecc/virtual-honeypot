@@ -18,7 +18,7 @@ int main() {
             printf("Failed to open ");
             return -1;
     }
-    bytes = write(fd, buffer, 8192);
+    bytes = write(hfd, buffer, 8192);
     if (bytes < 0){
         perror("failed to write");
         return -1;
