@@ -1,0 +1,7 @@
+#!/bin/bash
+DOES_DEVICE_EXIST=$(ls -l /dev/ | grep honeypot | wc -l)
+
+if [[ $DOES_DEVICE_EXIST == 0 ]]; then
+    NODE_MAJOR=$(grep honeypot /proc/devices | cut -d " " -f1)
+    mknod /dev/honeypot c $NODE_MAJOR 0
+fi

@@ -1,0 +1,2 @@
+#!/bin/bash
+insmod /lib/modules/4.14.0-memacq/kernel/drivers/md-ramdisk-driver/driver.ko server_program_path='"/root/server"' activator_program_path='"/root/activator"' create_honeypot_program_path='"/root/create_honeypot"'
