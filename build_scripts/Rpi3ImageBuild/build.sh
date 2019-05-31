@@ -55,6 +55,7 @@ cd $DIR/../../LinuxKernel/out/rpi3-image
 tar -Jxvf gcc-linaro-4.9-2015.05-x86_64_aarch64-linux-gnu.tar.xz
 cd $DIR
 $DIR/../../LinuxKernel/out/rpi3-image/gcc-linaro-4.9-2015.05-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu-gcc -o $DIR/../../LinuxKernel/out/rpi3-image/server $DIR/../../LinuxKernel/rasp-hyplet/drivers/md-ramdisk-driver/server.c
+cp $DIR/../../LinuxKernel/out/rpi3-image/server /mnt/tmp_RASPIROOT/root/
 umount /mnt/tmp_RASPIFIRM
 umount /mnt/tmp_RASPIROOT
 losetup -d $MAIN_LOOP_DEV
