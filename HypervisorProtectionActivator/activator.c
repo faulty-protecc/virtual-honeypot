@@ -12,16 +12,21 @@ int main() {
 
     fd = open("/dev/sbd0",O_RDWR);
     buffer = mmap(NULL,8192, PROT_READ, MAP_PRIVATE, fd, 0);
+
+    if (buffer == MAP_FAILED) {
+        perror("mmap failed");
+        return 1;
+    }
  
     hfd  = open("/dev/honeypot", O_RDWR);
     if (hfd < 0 ){
             printf("Failed to open ");
-            return -1;
+            return 2;
     }
     bytes = write(hfd, buffer, 8192);
     if (bytes < 0){
         perror("failed to write");
-        return -1;
+        return 3;
     }
     printf("Going to sleep\n");
     sleep(1);
