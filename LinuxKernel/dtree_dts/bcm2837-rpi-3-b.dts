@@ -8,14 +8,8 @@
 	#address-cells = <0x1>;
 	#size-cells = <0x1>;
 
-	aliases {
-		serial0 = "/soc/serial@7e201000";
-		serial1 = "/soc/serial@7e215040";
-		ethernet0 = "/soc/usb@7e980000/usb1@1/usbether@1";
-	};
-
 	chosen {
-		stdout-path = "serial1:115200n8";
+		bootargs = "earlyprintk console=ttyAMA0";
 	};
 
 	thermal-zones {
@@ -623,40 +617,6 @@
 			};
 		};
 
-	       /* 7ed - 3f0 = 3fd */ 
-		usb_fake@7ed00000{
-			compatible = "brcm,bcm2835-usb";
-			reg = <0x7ed00000 0x10000>;
-			interrupts = <0x1 0x9>;
-			#address-cells = <0x1>;
-			#size-cells = <0x0>;
-			clocks = <0x19>;
-			clock-names = "otg";
-			phys = <0x1a>;
-			phy-names = "usb2-phy";
-			power-domains = <0xf 0x6>;
-			dr_mode = "host";
-
-			usb-port@1 {
-				compatible = "usb424,2514";
-				reg = <0x1>;
-				#address-cells = <0x1>;
-				#size-cells = <0x0>;
-
-				usb-port@1 {
-					compatible = "usb424,2514";
-					reg = <0x1>;
-					#address-cells = <0x1>;
-					#size-cells = <0x0>;
-
-					ethernet@1 {
-						compatible = "usb424,7800";
-						reg = <0x1>;
-					};
-				};
-			};
-		};
-
 		v3d@7ec00000 {
 			compatible = "brcm,bcm2835-v3d";
 			reg = <0x7ec00000 0x1000>;
@@ -785,5 +745,9 @@
 			linux,default-trigger = "heartbeat";
 			gpios = <0x19 0x2f 0x0>;
 		};
+	};
+
+	aliases {
+		ethernet0 = "/soc/usb@7e980000/usb1@1/usbether@1";
 	};
 };
