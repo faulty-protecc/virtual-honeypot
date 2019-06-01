@@ -61,7 +61,7 @@ cp $DIR/../../LinuxKernel/out/rpi3-image/activator /mnt/tmp_RASPIROOT/root/
 cp $DIR/../../util_scripts/create_honeypot /mnt/tmp_RASPIROOT/root/
 cp $DIR/../../util_scripts/insmod_in_rpi3 /mnt/tmp_RASPIROOT/root/
 $DIR/../LinuxKernelBuild/build_dtb.sh
-cp $DIR/../../LinuxKernel/out/dtb/bcm2710-rpi-3-b-plus.dtb /mnt/tmp_RASPIFIRM/
+cp $DIR/../../LinuxKernel/out/dtb/bcm2837-rpi-3-b.dtb /mnt/tmp_RASPIFIRM/
 umount /mnt/tmp_RASPIFIRM
 umount /mnt/tmp_RASPIROOT
 losetup -d $MAIN_LOOP_DEV

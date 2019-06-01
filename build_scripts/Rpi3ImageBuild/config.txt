@@ -7,4 +7,4 @@ kernel=linux-4.14.0-malware-detector.img
 # For details on the initramfs directive, see
 # https://www.raspberrypi.org/forums/viewtopic.php?f=63&t=10532
 initramfs initrd.img-4.14.0-memacq
-device_tree=bcm2710-rpi-3-b-plus.dtb
+device_tree=bcm2837-rpi-3-b.dtb
