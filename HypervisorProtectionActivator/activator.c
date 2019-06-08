@@ -11,7 +11,7 @@ int main() {
     int bytes;
 
     fd = open("/dev/sbd0",O_RDWR);
-    buffer = mmap(NULL,8192, PROT_READ, MAP_PRIVATE, fd, 0);
+    buffer = mmap(NULL,524288, PROT_READ, MAP_PRIVATE, fd, 0);
 
     if (buffer == MAP_FAILED) {
         perror("mmap failed");
@@ -23,7 +23,7 @@ int main() {
             printf("Failed to open ");
             return 2;
     }
-    bytes = write(hfd, buffer, 8192);
+    bytes = write(hfd, buffer, 524288);
     if (bytes < 0){
         perror("failed to write");
         return 3;
